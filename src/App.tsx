@@ -39,7 +39,7 @@ function Node(
       use:droppable
       id={nodeId}
       classList={{
-        "flex flex-col relative group items-center justify-center w-20 h-20 rounded-lg transition box-border": true,
+        "flex flex-col relative group items-center justify-center w-20 h-20 rounded-lg transition box-border -rotate-90 md:rotate-0": true,
         "bg-red-400": team === 'red' && active(),
         "bg-sky-400": team === 'blue' && active(),
         "bg-red-300": team === 'red' && !active(),
@@ -47,6 +47,7 @@ function Node(
         "opacity-50": !!unallowed(),
         "p-4": mapping()[nodeId] != null,
       }}
+      style={{"touch-action": "none"}}
       onClick={() => {
         if (mapping()[nodeId] != null) {
           setMapping({ ...mapping(), [nodeId]: null })
@@ -89,13 +90,14 @@ function StagingArea({ children, i, team, mapping, setMapping }: ParentProps<{ i
       use:droppable
       id={id}
       classList={{
-        "flex items-center justify-center relative group w-20 h-20 bg-gray-300 rounded-lg m-8 transition": true,
+        "flex items-center justify-center relative group w-20 h-20 bg-gray-300 rounded-lg m-8 transition -rotate-90 md:rotate-0": true,
         "bg-red-400": team === 'red' && droppable.isActiveDroppable,
         "bg-sky-400": team === 'blue' && droppable.isActiveDroppable,
         "bg-red-300": team === 'red' && !droppable.isActiveDroppable,
         "bg-sky-300": team === 'blue' && !droppable.isActiveDroppable,
         "p-4": mapping()[id] != null,
       }}
+      style={{"touch-action": "none"}}
       onClick={() => {
         if (mapping()[id] != null) {
           setMapping({ ...mapping(), [id]: null })
@@ -121,7 +123,11 @@ function DraggableImage(props: { src: string, alt: string }) {
   const draggable = createDraggable(props.alt, { type: props.alt });
 
   return (
-    <div use:draggable class="flex p-4 bg-gray-400 rounded-lg w-20 h-20 cursor-grab z-[9999]">
+    <div
+      use:draggable
+      class="flex p-2 md:p-4 bg-gray-400 rounded-lg w-14 h-14 md:w-20 md:h-20 cursor-grab z-[9999]"
+      style={{"touch-action": "none"}}
+    >
       <img src={props.src} alt={props.alt} class="w-18 h-18" width={80} height={80} draggable={false} />
     </div>
   )
@@ -261,7 +267,7 @@ function Main() {
           </p>
         </div>
       </div>
-      <div class="flex items-center">
+      <div class="flex items-center rotate-90 -mt-20 scale-[55%] md:mt-2 md:scale-100 md:rotate-0">
         <div>
           <Label>B1</Label>
           <Label>B2</Label>
