@@ -39,7 +39,7 @@ function Node(
       use:droppable
       id={nodeId}
       classList={{
-        "flex flex-col relative group items-center justify-center w-20 h-20 rounded-lg transition box-border -rotate-90 md:rotate-0": true,
+        "flex flex-col relative group items-center justify-center w-20 h-20 rounded-lg transition box-border": true,
         "bg-red-400": team === 'red' && active(),
         "bg-sky-400": team === 'blue' && active(),
         "bg-red-300": team === 'red' && !active(),
@@ -57,26 +57,30 @@ function Node(
       <Show when={mapping()[nodeId]?.linkStart} keyed={false}>
         <div class="absolute inset-0 border-4 border-emerald-500 rounded-lg z-[1000] h-60 pointer-events-none" />
       </Show>
-      <Show when={mapping()[nodeId]} keyed={false} fallback={
-        <>
-          {children}
-          {!nodeId.includes('ground') && (
-            <p class="font-bold text-xs pt-1">
+      <div class="flex flex-col items-center justify-center mobile:-rotate-90">
+        <Show when={mapping()[nodeId]} keyed={false} fallback={
+          <>
+            {children}
+            <p classList={{
+              "font-bold text-xs pt-1": true,
+              "text-violet-700": accept.length == 1 && accept[0] == 'Cube',
+              "text-yellow-700": accept.length == 1 && accept[0] == 'Cone',
+            }}>
               {accept.length < 2 ? `${accept[0]} only` : 'Hybrid'}
             </p>
-          )}
-        </>
-      }>
-        <div class="absolute inset-0 w-20 h-20 bg-black/60 backdrop-blur rounded-lg cursor-pointer
-          opacity-0 group-hover:opacity-100 transition duration-200 text-white flex items-center justify-center text-sm">
-          Remove
-        </div>
-        <div class="flex flex-col items-center justify-center w-full h-full">
-          <img src={mapping()[nodeId]?.type === 'Cone' ? './cone.png' : './cube.png'} alt="" class="w-16 h-12" width={80}
-               height={80} draggable={false}/>
-          <p class="text-xs font-medium">{mapping()[nodeId]?.isAuto ? 'Autonomous' : 'Tele-op'}</p>
-        </div>
-      </Show>
+          </>
+        }>
+          <div class="absolute inset-0 w-20 h-20 bg-black/60 backdrop-blur rounded-lg cursor-pointer
+            opacity-0 group-hover:opacity-100 transition duration-200 text-white flex items-center justify-center text-sm">
+            Remove
+          </div>
+          <div class="flex flex-col items-center justify-center w-full h-full">
+            <img src={mapping()[nodeId]?.type === 'Cone' ? './cone.png' : './cube.png'} alt="" class="w-12 h-12" width={80}
+                 height={80} draggable={false}/>
+            <p class="text-xs font-medium">{mapping()[nodeId]?.isAuto ? 'Autonomous' : 'Tele-op'}</p>
+          </div>
+        </Show>
+      </div>
     </div>
   )
 }
@@ -276,12 +280,12 @@ function Main() {
         {/* lazy */}
         <div>
           {[...new Array(9).keys()].map((i) => (
-            <Node accept={[1, 4, 7].includes(i) ? ['Cone', 'Cube'] : ['Cone']} nodeId={`blue-high-${i}`} team='blue' mapping={mapping} setMapping={setMapping}>High</Node>
+            <Node accept={[1, 4, 7].includes(i) ? ['Cube'] : ['Cone']} nodeId={`blue-high-${i}`} team='blue' mapping={mapping} setMapping={setMapping}>High</Node>
           ))}
         </div>
         <div>
           {[...new Array(9).keys()].map((i) => (
-            <Node accept={[1, 4, 7].includes(i) ? ['Cone', 'Cube'] : ['Cone']} nodeId={`blue-medium-${i}`} team='blue' mapping={mapping} setMapping={setMapping}>Middle</Node>
+            <Node accept={[1, 4, 7].includes(i) ? ['Cube'] : ['Cone']} nodeId={`blue-medium-${i}`} team='blue' mapping={mapping} setMapping={setMapping}>Middle</Node>
           ))}
         </div>
         <div>
@@ -307,12 +311,12 @@ function Main() {
         </div>
         <div>
           {[...new Array(9).keys()].map((i) => (
-            <Node accept={[1, 4, 7].includes(i) ? ['Cone', 'Cube'] : ['Cone']} nodeId={`red-medium-${i}`} team='red' mapping={mapping} setMapping={setMapping}>Middle</Node>
+            <Node accept={[1, 4, 7].includes(i) ? ['Cube'] : ['Cone']} nodeId={`red-medium-${i}`} team='red' mapping={mapping} setMapping={setMapping}>Middle</Node>
           ))}
         </div>
         <div>
           {[...new Array(9).keys()].map((i) => (
-            <Node accept={[1, 4, 7].includes(i) ? ['Cone', 'Cube'] : ['Cone']} nodeId={`red-high-${i}`} team='red' mapping={mapping} setMapping={setMapping}>High</Node>
+            <Node accept={[1, 4, 7].includes(i) ? ['Cube'] : ['Cone']} nodeId={`red-high-${i}`} team='red' mapping={mapping} setMapping={setMapping}>High</Node>
           ))}
         </div>
         <div>
