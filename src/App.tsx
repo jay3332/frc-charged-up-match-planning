@@ -57,6 +57,13 @@ function Node(
       <Show when={mapping()[nodeId]?.linkStart} keyed={false}>
         <div class="absolute inset-0 border-4 border-emerald-500 rounded-lg z-[1000] h-60 pointer-events-none" />
       </Show>
+      <Show when={mapping()[nodeId]} keyed={false}>
+        <div class="absolute inset-0 w-20 h-20 bg-black/60 backdrop-blur rounded-lg cursor-pointer z-[9999]
+            opacity-0 group-hover:opacity-100 transition duration-200 text-white flex items-center justify-center
+            text-sm mobile:-rotate-90">
+          Remove
+        </div>
+      </Show>
       <div class="flex flex-col items-center justify-center mobile:-rotate-90">
         <Show when={mapping()[nodeId]} keyed={false} fallback={
           <>
@@ -70,10 +77,6 @@ function Node(
             </p>
           </>
         }>
-          <div class="absolute inset-0 w-20 h-20 bg-black/60 backdrop-blur rounded-lg cursor-pointer
-            opacity-0 group-hover:opacity-100 transition duration-200 text-white flex items-center justify-center text-sm">
-            Remove
-          </div>
           <div class="flex flex-col items-center justify-center w-full h-full">
             <img src={mapping()[nodeId]?.type === 'Cone' ? './cone.png' : './cube.png'} alt="" class="w-12 h-12" width={80}
                  height={80} draggable={false}/>
