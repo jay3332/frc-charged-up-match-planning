@@ -2,7 +2,7 @@ import {
   Accessor,
   Component,
   createMemo,
-  createSignal,
+  createSignal, onCleanup, onMount,
   ParentProps,
   Show,
 } from "solid-js";
@@ -137,6 +137,18 @@ function DraggableImage(props: { src: string, alt: string }) {
   )
 }
 
+function scaleAmountNeededToFit(el: HTMLElement, margin: number = 0) {
+  const parentSize = {
+    width: el.parentElement!.clientWidth - margin * 2,
+    height: el.parentElement!.clientHeight - margin * 2
+  };
+  return Math.min(parentSize.width / el.clientWidth, parentSize.height / el.clientHeight);
+}
+function fitToParent(element: HTMLElement, margin: number = 0) {
+  const scale = scaleAmountNeededToFit(element, margin);
+  element.style.transform = `rotate(90deg) translate(calc(-50% + 110px), 0) scale(${scale}) translate(50%, 0)`;
+}
+
 function Main() {
   const [, { onDragEnd }] = useDragDropContext()!;
 
@@ -226,6 +238,26 @@ function Main() {
     return { blue, red }
   })
 
+  let arenaRef: HTMLDivElement | null = null
+  function main() {
+    if (window.innerWidth < 768)
+      requestAnimationFrame(function fitToParentOnResize() {
+        fitToParent(arenaRef!, -64);
+      })
+    else {
+      arenaRef!.style.transform = 'none'
+    }
+  }
+
+  onMount(() => {
+    window.addEventListener("DOMContentLoaded", main);
+    window.addEventListener("resize", main);
+  })
+  onCleanup(() => {
+    window.removeEventListener("DOMContentLoaded", main);
+    window.removeEventListener("resize", main);
+  })
+
   return (
     <main class="text-center flex flex-col items-center justify-center mx-auto text-gray-700 p-4">
       <h1 class="font-bold text-4xl my-4">Match Planning</h1>
@@ -271,7 +303,7 @@ function Main() {
           </p>
         </div>
       </div>
-      <div class="flex items-center rotate-90 -mt-20 scale-[55%] md:mt-2 md:scale-100 md:rotate-0">
+      <div class="flex items-center mt-2 md:rotate-0 rotate-90" ref={arenaRef!}>
         <div>
           <Label>B1</Label>
           <Label>B2</Label>
