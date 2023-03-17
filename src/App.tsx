@@ -71,7 +71,7 @@ function Node(
           Remove
         </div>
         <div class="flex flex-col items-center justify-center w-full h-full">
-          <img src={mapping()[nodeId]?.type === 'Cone' ? '/cone.png' : '/cube.png'} alt="" class="w-16 h-12" width={80}
+          <img src={mapping()[nodeId]?.type === 'Cone' ? './cone.png' : './cube.png'} alt="" class="w-16 h-12" width={80}
                height={80} draggable={false}/>
           <p class="text-xs font-medium">{mapping()[nodeId]?.isAuto ? 'Autonomous' : 'Tele-op'}</p>
         </div>
@@ -108,7 +108,7 @@ function StagingArea({ children, i, team, mapping, setMapping }: ParentProps<{ i
           Remove
         </div>
         <div class="flex flex-col items-center justify-center w-full h-full">
-          <img src={mapping()[id]?.type === 'Cone' ? '/cone.png' : '/cube.png'} alt="" class="w-16 h-12" width={80}
+          <img src={mapping()[id]?.type === 'Cone' ? './cone.png' : './cube.png'} alt="" class="w-16 h-12" width={80}
                height={80} draggable={false} />
           <p class="text-xs font-medium">{mapping()[id]?.isAuto ? 'Autonomous' : 'Tele-op'}</p>
         </div>
@@ -221,8 +221,8 @@ function Main() {
       <h1 class="font-bold text-4xl my-4">Match Planning</h1>
       {/*<img src="/arena.png" alt="Arena" class="w-[90vw] mx-auto my-4"/>*/}
       <div class="flex gap-x-4 mb-4">
-        <DraggableImage src="/cone.png" alt="Cone"/>
-        <DraggableImage src="/cube.png" alt="Cube"/>
+        <DraggableImage src="./cone.png" alt="Cone"/>
+        <DraggableImage src="./cube.png" alt="Cube"/>
       </div>
       <div class="flex flex-col items-center">
         <div class="flex">
