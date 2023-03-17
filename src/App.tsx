@@ -358,6 +358,9 @@ function Main() {
           <Label>R3</Label>
         </div>
       </div>
+      <p class="text-center p-16">
+        Property of FRC Team 4638 Jagbots, made by jay3332
+      </p>
     </main>
   )
 }
