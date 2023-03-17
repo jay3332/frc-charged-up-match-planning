@@ -243,11 +243,11 @@ function Main() {
 
   let arenaRef: HTMLDivElement | null = null
   function main() {
-    if (window.innerWidth < 768)
+    if (window.matchMedia('(max-width: 768px)').matches) {
       requestAnimationFrame(function fitToParentOnResize() {
         fitToParent(arenaRef!, -64);
       })
-    else {
+    } else {
       arenaRef!.style.transform = 'none'
     }
   }
@@ -262,7 +262,7 @@ function Main() {
   })
 
   return (
-    <main class="text-center flex flex-col items-center justify-center mx-auto text-gray-700 p-4">
+    <main class="text-center flex flex-col items-center justify-center mx-auto text-gray-700 p-4 overflow-x-auto">
       <h1 class="font-bold text-4xl my-4">Match Planning</h1>
       {/*<img src="/arena.png" alt="Arena" class="w-[90vw] mx-auto my-4"/>*/}
       <div class="flex gap-x-4 mb-4">
@@ -360,6 +360,9 @@ function Main() {
           <Label>R3</Label>
         </div>
       </div>
+      <p class="text-center p-16">
+        Property of FRC Team 4638 Jagbots, made by jay3332
+      </p>
     </main>
   )
 }
