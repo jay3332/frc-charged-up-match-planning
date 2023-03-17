@@ -260,7 +260,8 @@ function Main() {
   })
 
   return (
-    <main class="text-center flex flex-col items-center justify-center mx-auto text-gray-700 p-4 overflow-x-auto">
+    <main class="text-center flex flex-col items-center justify-center mx-auto text-gray-700 p-4 overflow-x-auto relative">
+      <img class="absolute top-4 right-4 w-24 h-24 rounded-lg mobile:hidden" src="./jagbots.png" alt="Jagbots" />
       <h1 class="font-bold text-4xl my-4">Match Planning</h1>
       {/*<img src="/arena.png" alt="Arena" class="w-[90vw] mx-auto my-4"/>*/}
       <div class="flex gap-x-4 mb-4">
