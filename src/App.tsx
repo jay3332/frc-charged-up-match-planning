@@ -47,7 +47,6 @@ function Node(
         "opacity-50": !!unallowed(),
         "p-4": mapping()[nodeId] != null,
       }}
-      style={{"touch-action": "none"}}
       onClick={() => {
         if (mapping()[nodeId] != null) {
           setMapping({ ...mapping(), [nodeId]: null })
@@ -104,7 +103,6 @@ function StagingArea({ children, i, team, mapping, setMapping }: ParentProps<{ i
         "bg-sky-300": team === 'blue' && !droppable.isActiveDroppable,
         "p-4": mapping()[id] != null,
       }}
-      style={{"touch-action": "none"}}
       onClick={() => {
         if (mapping()[id] != null) {
           setMapping({ ...mapping(), [id]: null })
@@ -149,7 +147,7 @@ function scaleAmountNeededToFit(el: HTMLElement, margin: number = 0) {
 }
 function fitToParent(element: HTMLElement, margin: number = 0) {
   const scale = scaleAmountNeededToFit(element, margin);
-  element.style.transform = `rotate(90deg) translate(calc(-50% + 110px), 0) scale(${scale}) translate(50%, 0)`;
+  element.style.transform = `rotate(90deg) translate(calc(-50% + 60px), 0) scale(${scale}) translate(50%, 0)`;
 }
 
 function Main() {
@@ -167,7 +165,7 @@ function Main() {
     }
   }
   const [mapping, _setMapping] = createSignal<Mapping>({...$mapping})
-  const [placingAuto, setPlacingAuto] = createSignal(true)
+  const [placingAuto, setPlacingAuto] = createSignal(false)
 
   onDragEnd(({ draggable, droppable }) => {
     if (droppable && droppable.data?.accept.includes(draggable.id)) {
@@ -245,7 +243,7 @@ function Main() {
   function main() {
     if (window.matchMedia('(max-width: 768px)').matches) {
       requestAnimationFrame(function fitToParentOnResize() {
-        fitToParent(arenaRef!, -64);
+        fitToParent(arenaRef!, -36);
       })
     } else {
       arenaRef!.style.transform = 'none'
@@ -333,7 +331,7 @@ function Main() {
             <StagingArea mapping={mapping} setMapping={setMapping} i={`blue-${i}`} team='blue'>{i + 1}</StagingArea>
           ))}
         </div>
-        <div class="h-[600px] w-2 bg-gray-100 rounded-full mx-12" />
+        <div class="h-[600px] w-2 bg-gray-100 rounded-full md:mx-12" />
         <div>
           {[...new Array(4).keys()].map((i) => (
             <StagingArea mapping={mapping} setMapping={setMapping} i={`red-${i}`} team='red'>{i + 1}</StagingArea>
@@ -360,9 +358,6 @@ function Main() {
           <Label>R3</Label>
         </div>
       </div>
-      <p class="text-center p-16">
-        Property of FRC Team 4638 Jagbots, made by jay3332
-      </p>
     </main>
   )
 }
